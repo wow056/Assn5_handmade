@@ -1,0 +1,13 @@
+# ignore build folders
+debug/
+release/
+x64/
+GeneratedFiles/
+.vs/
+
+# ignore Visual Studio project files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+

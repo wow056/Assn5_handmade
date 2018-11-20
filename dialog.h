@@ -27,6 +27,7 @@ private:
     void createButtonLayout();
 
     QVBoxLayout *main_layout;
+	QLabel *result_label;
     QTextBrowser *result_output;
     QVBoxLayout *button_layout;
     QHBoxLayout *button_layout_row[4];

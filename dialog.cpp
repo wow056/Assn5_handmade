@@ -13,7 +13,14 @@ Dialog::Dialog(QWidget *parent)
 
 Dialog::~Dialog()
 {
-
+	for (int i = 0; i < 10; i++)
+		delete buttons[i];
+	for (int i = 0; i < 4; i++)
+		delete button_layout_row[i];
+	delete button_layout;
+	delete result_output;
+	delete result_label;
+	delete main_layout;
 }
 
 std::string Dialog::getButtonNames(int index)
@@ -55,6 +62,8 @@ void Dialog::createMainLayout()
 
 void Dialog::createOutputLayout()
 {
+	result_label = new QLabel("[RESULT]", this);
+	main_layout->addWidget(result_label);
 	result_output = new QTextBrowser(this);
 	main_layout->addWidget(result_output);
 }
