@@ -3,7 +3,8 @@
 
 #include <QDialog>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
+//#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QTextBrowser>
@@ -16,22 +17,35 @@ class Dialog : public QDialog
 public:
     Dialog(QWidget *parent = 0);
     ~Dialog();
+
+
 private:
+	typedef void (Dialog::*function_ptr)();
     enum {
         Mat = 0, Add, Sub, Num, Mul, Div, Str, Edit, Del, Clear
     };
 	
 	std::string getButtonNames(int index);
     void createMainLayout();
-	void createOutputLayout();
-    void createButtonLayout();
+	void connectSlots();
 
     QVBoxLayout *main_layout;
 	QLabel *result_label;
     QTextBrowser *result_output;
-    QVBoxLayout *button_layout;
-    QHBoxLayout *button_layout_row[4];
+    QGridLayout *button_layout;
     QPushButton *buttons[10];
+
+private slots:
+	void MatButtonClicked();
+	void AddButtonClicked();
+	void SubButtonClicked();
+	void NumButtonClicked();
+	void MulButtonClicked();
+	void DivButtonClicked();
+	void StrButtonClicked();
+	void EditButtonClicked();
+	void DelButtonClicked();
+	void ClearButtonClicked();
 };
 
 #endif // DIALOG_H
