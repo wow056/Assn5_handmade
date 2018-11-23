@@ -3,12 +3,13 @@
 
 #include <QDialog>
 #include <QVBoxLayout>
-//#include <QHBoxLayout>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QTextBrowser>
 #include <string>
+
+#include "newmatrixdialog.h"
 
 class Dialog : public QDialog
 {

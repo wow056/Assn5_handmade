@@ -95,6 +95,8 @@ void Dialog::AddButtonClicked()
 
 void Dialog::MatButtonClicked()
 {
+	NewMatrixDialog mat_dialog(this);
+	mat_dialog.exec();
 }
 
 void Dialog::SubButtonClicked()
