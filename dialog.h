@@ -10,6 +10,8 @@
 #include <string>
 
 #include "newmatrixdialog.h"
+#include "newnumericstringdialog.h"
+#include "editvaluedialog.h"
 
 class Dialog : public QDialog
 {

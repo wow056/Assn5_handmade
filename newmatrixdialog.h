@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QDialogButtonBox>
+#include <QValidator>
 
 class NewMatrixDialog : public QDialog
 {
@@ -26,6 +27,7 @@ private:
 	QLineEdit *input_line[4];
 
 	void createMainLayout();
+	void connectSlots();
 };
 
 

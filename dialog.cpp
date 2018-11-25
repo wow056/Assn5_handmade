@@ -105,6 +105,8 @@ void Dialog::SubButtonClicked()
 
 void Dialog::NumButtonClicked()
 {
+	NewNumericDialog num_dialog(this);
+	num_dialog.exec();
 }
 
 void Dialog::MulButtonClicked()
@@ -117,10 +119,14 @@ void Dialog::DivButtonClicked()
 
 void Dialog::StrButtonClicked()
 {
+	NewStringDialog str_dialog(this);
+	str_dialog.exec();
 }
 
 void Dialog::EditButtonClicked()
 {
+	EditValueDialog edit_dialog(this);
+	edit_dialog.exec();
 }
 
 void Dialog::DelButtonClicked()
