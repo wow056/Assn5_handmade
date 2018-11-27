@@ -2,41 +2,51 @@
 #define OPERAND_H
 
 #include <string>
+#include <QString>
 
-namespace op
+class Matrix;
+
+Matrix operator+(float n, const Matrix &m);
+Matrix operator-(float n, const Matrix &m);
+Matrix operator*(float n, const Matrix &m);
+Matrix operator/(float n, const Matrix &m);
+std::string operator*(const std::string &s, float n);
+std::string operator*(float n, const std::string &s);
+std::string operator+(const std::string &s, float n);
+std::string operator+(float n, const std::string &s);
+
+
+enum exceptions
 {
-	std::string operator+(const std::string &s, float n);
-	std::string operator+(float n, const std::string &s);
+	MatrixGenerationError,
+	CannotCalculateError	//연산이 불가능할때
+};
 
-	enum exceptions
-	{
-		SameTypeError,		//같은 타입간에 연산이 불가능할 때
-		DifferentTypeError	//다른 타입간에 연산이 불가능할 때
-	};
+class Matrix
+{
+public:
+	Matrix operator+(const Matrix&) const;
+	Matrix operator-(const Matrix&) const;
+	Matrix operator*(const Matrix&) const;
+	Matrix operator+(float n) const;
+	Matrix operator-(float n) const;
+	Matrix operator*(float n) const;
+	Matrix operator/(float n) const;
 
-	class Matrix
-	{
-		friend Matrix operator+(const Matrix &m, float n);
-		friend Matrix operator-(const Matrix &m, float n);
-		friend Matrix operator*(const Matrix &m, float n);
-		friend Matrix operator/(const Matrix &m, float n);
-	public:
-		Matrix(int rows, int cols, int initial);
-		Matrix(const Matrix&);
-		~Matrix();
+	Matrix(int rows, int cols, int initial);
+	Matrix(const Matrix&);
+	~Matrix();
+	float operator()(int i, int j) const;
+	void setValue(int i, int j, float value);
+	int Rows() const;
+	int Cols() const;
+	QString to_QString() const;
+private:
+	Matrix(int rows, int cols);
+	float **data;
+	int rows;
+	int cols;
+};
 
-		Matrix operator+(const Matrix&) const;
-		Matrix operator-(const Matrix&) const;
-		Matrix operator*(const Matrix&) const;
-		float operator()(int i, int j) const;
-		void setValue(int i, int j, float value);
-		
-	private:
-		Matrix(int rows, int cols);
-		float **data;
-		int rows;
-		int cols;
-	};
-}
 
 #endif // !OPERAND_H

@@ -1,11 +1,14 @@
 #include "operand.h"
 
-using namespace op;
 using namespace std;
 
 Matrix::Matrix(int rows, int cols, int initial)
 	:rows(rows), cols(cols)
 {
+	if (rows == 0 || cols == 0)
+	{
+		throw MatrixGenerationError;
+	}
 	data = new float*[rows];
 	for (int i = 0; i < rows; i++)
 	{
@@ -17,7 +20,7 @@ Matrix::Matrix(int rows, int cols, int initial)
 	}
 }
 
-op::Matrix::Matrix(const Matrix &m)
+Matrix::Matrix(const Matrix &m)
 	:rows(m.rows), cols(m.cols)
 {
 	data = new float*[rows];
@@ -42,70 +45,95 @@ Matrix::~Matrix()
 
 Matrix Matrix::operator+(const Matrix &m) const
 {
-	if ((cols == m.cols) && (rows == m.rows))
+	if ((cols != m.cols) || (rows != m.rows))
+		throw CannotCalculateError;
+
+	Matrix result(rows, cols);
+
+	for (int i = 0; i < rows; i++)
 	{
-		Matrix result(rows, cols);
-		for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
 		{
-			for (int j = 0; j < cols; j++)
-			{
-				result.data[i][j] = data[i][j] + m.data[i][j];
-			}
+			result.data[i][j] = data[i][j] + m.data[i][j];
 		}
-		return result;
 	}
-	else
-	{
-		throw SameTypeError;
-	}
+	return result;
 }
 
-Matrix op::Matrix::operator-(const Matrix &m) const
+Matrix Matrix::operator-(const Matrix &m) const
 {
-	if ((cols == m.cols) && (rows == m.rows))
+	if ((cols != m.cols) || (rows != m.rows))
+		throw CannotCalculateError;
+
+	Matrix result(rows, cols);
+	for (int i = 0; i < rows; i++)
 	{
-		Matrix result(rows, cols);
-		for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
 		{
-			for (int j = 0; j < cols; j++)
-			{
-				result.data[i][j] = data[i][j] - m.data[i][j];
-			}
+			result.data[i][j] = data[i][j] - m.data[i][j];
 		}
-		return result;
 	}
-	else
-	{
-		throw SameTypeError;
-	}
+	return result;
 }
 
-Matrix op::Matrix::operator*(const Matrix &m) const
+Matrix Matrix::operator*(const Matrix &m) const
 {
-	if (cols == m.rows)
+	if (cols != m.rows)
+		throw CannotCalculateError;
+
+	Matrix result(rows, m.cols);
+	for (int i = 0; i < rows; i++)
 	{
-		Matrix result(rows, m.cols);
-		for (int i = 0; i < rows; i++)
+		for (int j = 0; j < m.cols; j++)
 		{
-			for (int j = 0; j < m.cols; j++)
+			float result_ij = 0;
+			for (int k = 0; k < cols; k++)
 			{
-				float result_ij = 0;
-				for (int k = 0; k < cols; k++)
-				{
-					result_ij += data[i][k] * m.data[k][j];
-				}
-				m.data[i][j] = result_ij;
+				result_ij += data[i][k] * m.data[k][j];
 			}
+			m.data[i][j] = result_ij;
 		}
-		return result;
 	}
-	else
-	{
-		throw SameTypeError;
-	}
+	return result;
 }
 
-float op::Matrix::operator()(int i, int j) const
+Matrix Matrix::operator+(float n) const
+{
+	Matrix result(*this);
+	for (int i = 0; i < result.rows; i++)
+		for (int j = 0; j < result.cols; j++)
+			result.data[i][j] += n;
+	return result;
+}
+
+Matrix Matrix::operator-(float n) const
+{
+	Matrix result(*this);
+	for (int i = 0; i < result.rows; i++)
+		for (int j = 0; j < result.cols; j++)
+			result.data[i][j] -= n;
+	return result;
+}
+
+Matrix Matrix::operator*(float n) const
+{
+	Matrix result(*this);
+	for (int i = 0; i < result.rows; i++)
+		for (int j = 0; j < result.cols; j++)
+			result.data[i][j] *= n;
+	return result;
+}
+
+Matrix Matrix::operator/(float n) const
+{
+	Matrix result(*this);
+	for (int i = 0; i < result.rows; i++)
+		for (int j = 0; j < result.cols; j++)
+			result.data[i][j] /= n;
+	return result;
+}
+
+float Matrix::operator()(int i, int j) const
 {
 	if (i < rows && j < cols)
 	{
@@ -113,11 +141,11 @@ float op::Matrix::operator()(int i, int j) const
 	}
 	else
 	{
-		throw SameTypeError;
+		throw CannotCalculateError;
 	}
 }
 
-void op::Matrix::setValue(int i, int j, float value)
+void Matrix::setValue(int i, int j, float value)
 {
 	if (i < rows && j < cols)
 	{
@@ -125,11 +153,36 @@ void op::Matrix::setValue(int i, int j, float value)
 	}
 	else
 	{
-		throw SameTypeError;
+		throw CannotCalculateError;
 	}
 }
 
-op::Matrix::Matrix(int rows, int cols)
+int Matrix::Rows() const
+{
+	return rows;
+}
+
+int Matrix::Cols() const
+{
+	return cols;
+}
+
+QString Matrix::to_QString() const
+{
+	QString result;
+	for (int i = 0; i < rows; i++)
+	{
+		result += "[";
+		for (int j = 0; j < cols; j++)
+		{
+			result += QString("%d, ").arg(data[i][j]);
+		}
+		result += "]\n";
+	}
+	return result;
+}
+
+Matrix::Matrix(int rows, int cols)
 	:rows(rows), cols(cols)
 {
 	data = new float*[rows];
@@ -139,48 +192,47 @@ op::Matrix::Matrix(int rows, int cols)
 	}
 }
 
-std::string op::operator+(const std::string & s, float n)
+std::string operator+(const std::string & s, float n)
 {
-	return std::string(s) + to_string(n);
+	return s + std::to_string(n);
 }
 
-std::string op::operator+(float n, const std::string & s)
+std::string operator+(float n, const std::string & s)
 {
-	return to_string(n) + std::string(s);
+	return std::to_string(n) + s;
 }
 
-Matrix op::operator+(const Matrix & m, float n)
+std::string operator*(const std::string & s, float n)
 {
-	Matrix result(m);
-	for (int i = 0; i < result.rows; i++)
-		for (int j = 0; j < result.cols; j++)
-			result.data[i][j] += n;
+	string result;
+	for (int i = 0; i < n; i++)
+	{
+		result += s;
+	}
 	return result;
 }
 
-Matrix op::operator-(const Matrix & m, float n)
+std::string operator*(float n, const std::string & s)
 {
-	Matrix result(m);
-	for (int i = 0; i < result.rows; i++)
-		for (int j = 0; j < result.cols; j++)
-			result.data[i][j]-= n;
-	return result;
+	return s * n;
 }
 
-Matrix op::operator*(const Matrix & m, float n)
+Matrix operator+(float n, const Matrix &m)
 {
-	Matrix result(m);
-	for (int i = 0; i < result.rows; i++)
-		for (int j = 0; j < result.cols; j++)
-			result.data[i][j] *= n;
-	return result;
+	return m + n;
 }
 
-Matrix op::operator/(const Matrix & m, float n)
+Matrix operator-(float n, const Matrix &m)
 {
-	Matrix result(m);
-	for (int i = 0; i < result.rows; i++)
-		for (int j = 0; j < result.cols; j++)
-			result.data[i][j] /= n;
-	return result;
+	return m - n;
+}
+
+Matrix operator*(float n, const Matrix &m)
+{
+	return m * n;
+}
+
+Matrix operator/(float n, const Matrix &m)
+{
+	return m / n;
 }
