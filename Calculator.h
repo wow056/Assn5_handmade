@@ -6,6 +6,7 @@
 #include <string>
 #include <set>
 #include <QString>
+#include <QStringList>
 
 //Back-end operation class calculator
 class Calculator
@@ -27,7 +28,8 @@ public:
 	void EditVAlue(std::string key, std::string value);
 	QString GetInfo(std::string key) const;
 	QString GetVarialbeValue(std::string key) const;
-	std::set<QString> getVariableNameSet() const;
+	QStringList getVariableNameList() const;
+	
 private:
 	std::map<std::string, Matrix> matrix_variables;
 	std::map<std::string, float> numeric_variables;

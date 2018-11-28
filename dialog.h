@@ -12,6 +12,7 @@
 #include "newmatrixdialog.h"
 #include "newnumericstringdialog.h"
 #include "editvaluedialog.h"
+#include "Calculator.h"
 
 class Dialog : public QDialog
 {

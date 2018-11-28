@@ -391,26 +391,26 @@ QString Calculator::GetVarialbeValue(std::string key) const
 	}
 }
 
-std::set<QString> Calculator::getVariableNameSet() const
+QStringList Calculator::getVariableNameList() const
 {
 	map<string, Matrix>::const_iterator matrix_it;
 	map<string, float>::const_iterator numeric_it;
 	map<string, string>::const_iterator string_it;
-	set<QString> result;
+	QStringList result;
 
 	for (matrix_it = matrix_variables.begin(); matrix_it != matrix_variables.end(); matrix_it++)
 	{
-		result.insert(QString::fromStdString(matrix_it->first));
+		result << QString::fromStdString(matrix_it->first);
 	}
 	for (numeric_it = numeric_variables.begin(); numeric_it != numeric_variables.end(); numeric_it++)
 	{
-		result.insert(QString::fromStdString(numeric_it->first));
+		result << QString::fromStdString(numeric_it->first);
 	}
 	for (string_it = string_variables.begin(); string_it != string_variables.end(); string_it++)
 	{
-		result.insert(QString::fromStdString(string_it->first));
+		result << QString::fromStdString(string_it->first);
 	}
-
+	result.sort();
 	return result;
 }
 
