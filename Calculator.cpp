@@ -2,11 +2,11 @@
 
 using namespace std;
 
+Calculator* Calculator::instance = nullptr;
 
 Calculator::Calculator()
 {
 }
-
 
 Calculator::~Calculator()
 {
@@ -412,5 +412,12 @@ QStringList Calculator::getVariableNameList() const
 	}
 	result.sort();
 	return result;
+}
+
+void Calculator::Clear()
+{
+	matrix_variables.clear();
+	numeric_variables.clear();
+	string_variables.clear();
 }
 

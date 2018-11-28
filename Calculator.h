@@ -9,6 +9,8 @@
 #include <QStringList>
 
 //Back-end operation class calculator
+//Dynamic Singleton
+//http://vallista.tistory.com/entry/1-Singleton-Pattern-in-C
 class Calculator
 {
 public:
@@ -29,7 +31,14 @@ public:
 	QString GetInfo(std::string key) const;
 	QString GetVarialbeValue(std::string key) const;
 	QStringList getVariableNameList() const;
-	
+	void Clear();
+
+	static Calculator* GetInstance()
+	{
+		if (instance == nullptr)
+			instance = new Calculator();
+		return instance;
+	}
 private:
 	std::map<std::string, Matrix> matrix_variables;
 	std::map<std::string, float> numeric_variables;
@@ -37,7 +46,8 @@ private:
 	void SetResult(const Matrix & value);
 	void SetResult(float value);
 	void SetResult(std::string value);
-};
 
+	static Calculator* instance;
+};
 
 #endif // !CALCULATOR_H
