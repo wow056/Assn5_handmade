@@ -21,10 +21,8 @@ class Dialog : public QDialog
 public:
     Dialog(QWidget *parent = 0);
     ~Dialog();
-
-
+	Calculator* getCalculator();
 private:
-	typedef void (Dialog::*function_ptr)();
     enum {
         Mat = 0, Add, Sub, Num, Mul, Div, Str, Edit, Del, Clear
     };
@@ -32,13 +30,14 @@ private:
 	std::string getButtonNames(int index);
     void createMainLayout();
 	void connectSlots();
+	void showVariable(QString name) const;
 
     QVBoxLayout *main_layout;
 	QLabel *result_label;
     QTextBrowser *result_output;
     QGridLayout *button_layout;
     QPushButton *buttons[10];
-
+	Calculator *calc;
 private slots:
 	void MatButtonClicked();
 	void AddButtonClicked();

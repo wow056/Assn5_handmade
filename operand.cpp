@@ -2,8 +2,13 @@
 
 using namespace std;
 
+Matrix::Matrix()
+	:rows(0), cols(0), data(nullptr)
+{
+}
+
 Matrix::Matrix(int rows, int cols, int initial)
-	:rows(rows), cols(cols)
+	: rows(rows), cols(cols)
 {
 	if (rows == 0 || cols == 0)
 	{
@@ -145,15 +150,32 @@ float Matrix::operator()(int i, int j) const
 	}
 }
 
-void Matrix::setValue(int i, int j, float value)
+Matrix & Matrix::operator=(const Matrix &m)
 {
-	if (i < rows && j < cols)
+	rows = m.rows;
+	cols = m.cols;
+	data = new float*[rows];
+	for (int i = 0; i < rows; i++)
+	{
+		data[i] = new float[cols];
+		for (int j = 0; j < cols; j++)
+		{
+			data[i][j] = m.data[i][j];
+		}
+	}
+	return *this;
+}
+
+bool Matrix::setValue(int i, int j, float value)
+{
+	if (i < rows && i >= 0  && j >= 0 && j < cols)
 	{
 		data[i][j] = value;
+		return true;
 	}
 	else
 	{
-		throw CannotCalculateError;
+		return false;
 	}
 }
 
@@ -175,7 +197,7 @@ QString Matrix::to_QString() const
 		result += "[";
 		for (int j = 0; j < cols; j++)
 		{
-			result += QString("%d, ").arg(data[i][j]);
+			result += QString("%1, ").arg(data[i][j]);
 		}
 		result += "]\n";
 	}

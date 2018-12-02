@@ -18,8 +18,16 @@ std::string operator+(float n, const std::string &s);
 
 enum exceptions
 {
-	MatrixGenerationError,
-	CannotCalculateError	//연산이 불가능할때
+	MatrixGenerationError = 32,
+	CannotCalculateError = 64	//연산이 불가능할때
+};
+
+struct Matrix_meta
+{
+	std::string name;
+	int rows;
+	int cols;
+	float init_value;
 };
 
 class Matrix
@@ -33,11 +41,13 @@ public:
 	Matrix operator*(float n) const;
 	Matrix operator/(float n) const;
 
+	Matrix();
 	Matrix(int rows, int cols, int initial);
 	Matrix(const Matrix&);
 	~Matrix();
 	float operator()(int i, int j) const;
-	void setValue(int i, int j, float value);
+	Matrix& operator=(const Matrix&);
+	bool setValue(int i, int j, float value);
 	int Rows() const;
 	int Cols() const;
 	QString to_QString() const;

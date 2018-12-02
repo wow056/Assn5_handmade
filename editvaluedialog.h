@@ -9,7 +9,10 @@
 #include <QComboBox>
 #include <QWidget>
 #include <QDialogButtonBox>
-
+#include <QDoubleValidator>
+#include <QIntValidator>
+#include <QMessageBox>
+#include "Calculator.h"
 
 class EditValueDialog : public QDialog
 {
@@ -18,10 +21,14 @@ class EditValueDialog : public QDialog
 private slots:
 	void changeToMatrixLayout();
 	void changeToStringLayout();
+	void changeToNumericLayout();
+	void OK_button_clicked();
+	void variable_selected(const QString&);
 
 public:
 	EditValueDialog(QWidget *parent);
 	~EditValueDialog();
+	QString changed_variable() const;
 
 private:
 	enum {Row=0, Col, Value};
@@ -38,6 +45,9 @@ private:
 	QLabel *label[3];
 	QLineEdit *input_line[3];
 	QDialogButtonBox *button_box;
+	Calculator *calc;
+	QValidator *validator;
+	QString _changed_varriable;
 
 	void createMainLayout();
 	void connectSlots();

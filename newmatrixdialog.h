@@ -7,7 +7,10 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QDialogButtonBox>
-#include <QValidator>
+#include <QIntValidator>
+#include <QDoubleValidator>
+#include <QMessageBox>
+#include "Calculator.h"
 
 class NewMatrixDialog : public QDialog
 {
@@ -16,6 +19,7 @@ class NewMatrixDialog : public QDialog
 public:
 	NewMatrixDialog(QWidget *parent);
 	~NewMatrixDialog();
+	QString made_name();
 
 private:
 	enum { Name = 0, Rows, Cols, Init };
@@ -25,9 +29,14 @@ private:
 	QVBoxLayout *input_layout[4];
 	QLabel *label[4];
 	QLineEdit *input_line[4];
+	Calculator* calc;
 
 	void createMainLayout();
 	void connectSlots();
+
+	QString name_of_variable;
+private slots:
+	void OK_button_clicked();
 };
 
 

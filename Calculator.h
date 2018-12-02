@@ -14,22 +14,23 @@
 class Calculator
 {
 public:
-	enum {AlreadyExistError, ReservedWordError};
-	enum {Add, Sub, Mul, Div};
+	enum {AlreadyExistError = 256, ReservedWordError};
+	enum {MATRIX, NUMERIC, STRING};
 	Calculator();
 	~Calculator();
-	void NewVariable(const std::string &name, int rows, int cols, float init);
-	void NewVariable(const std::string &name, float value);
-	void NewVariable(const std::string &name, std::string value);
-	void Add(std::string key1, std::string key2);
-	void Sub(std::string key1, std::string key2);
-	void Mul(std::string key1, std::string key2);
-	void Div(std::string key1, std::string key2);
-	void EditValue(std::string key, int row, int col, float value);
-	void EditValue(std::string key, float value);
-	void EditVAlue(std::string key, std::string value);
-	QString GetInfo(std::string key) const;
-	QString GetVarialbeValue(std::string key) const;
+	int NewVariable(const std::string &name, int rows, int cols, float init);
+	int NewVariable(const std::string &name, float value);
+	int NewVariable(const std::string &name, std::string value);
+	int Add(std::string key1, std::string key2);
+	int Sub(std::string key1, std::string key2);
+	int Mul(std::string key1, std::string key2);
+	int Div(std::string key1, std::string key2);
+	bool EditValue(std::string key, int row, int col, float value);
+	bool EditValue(std::string key, float value);
+	bool EditValue(std::string key, std::string value);
+	QString getVariableInfo(std::string key) const;
+	QString GetVariableValue(std::string key) const;
+	int getVariableType(std::string key) const;
 	QStringList getVariableNameList() const;
 	void Clear();
 
