@@ -17,7 +17,7 @@ EditValueDialog::~EditValueDialog()
 
 QString EditValueDialog::changed_variable() const
 {
-	return _changed_varriable;
+	return _changed_variable;
 }
 
 void EditValueDialog::createMainLayout()
@@ -114,7 +114,7 @@ void EditValueDialog::OK_button_clicked()
 		float value = input_line[Value]->text().toFloat();
 		if (calc->EditValue(key, row, col, value))
 		{
-			_changed_varriable = select_combobox->currentText();
+			_changed_variable = select_combobox->currentText();
 			accept();
 		}
 		else
@@ -128,6 +128,7 @@ void EditValueDialog::OK_button_clicked()
 	{
 		float value = input_line[Value]->text().toFloat();
 		calc->EditValue(key, value);
+		_changed_variable = select_combobox->currentText();
 		accept();
 		break;
 	}
@@ -135,6 +136,7 @@ void EditValueDialog::OK_button_clicked()
 	{
 		std::string value = input_line[Value]->text().toStdString();
 		calc->EditValue(key, value);
+		_changed_variable = select_combobox->currentText();
 		accept();
 		break;
 	}

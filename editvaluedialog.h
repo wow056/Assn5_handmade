@@ -47,7 +47,7 @@ private:
 	QDialogButtonBox *button_box;
 	Calculator *calc;
 	QValidator *validator;
-	QString _changed_varriable;
+	QString _changed_variable;
 
 	void createMainLayout();
 	void connectSlots();
