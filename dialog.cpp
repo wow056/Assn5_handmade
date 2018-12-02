@@ -162,7 +162,6 @@ void Dialog::StrButtonClicked()
 void Dialog::EditButtonClicked()
 {
 	EditValueDialog edit_dialog(this);
-	edit_dialog.exec();
 	if (edit_dialog.exec() == QDialog::Accepted)
 	{
 		showVariable(edit_dialog.changed_variable());

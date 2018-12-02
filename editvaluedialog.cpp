@@ -17,13 +17,13 @@ EditValueDialog::~EditValueDialog()
 
 QString EditValueDialog::changed_variable() const
 {
-	return _changed_varriable
+	return _changed_varriable;
 }
 
 void EditValueDialog::createMainLayout()
 {
 	main_layout = new QVBoxLayout(this);
-	
+
 	for (int i = 0; i < 3; i++)
 	{
 		input_layout[i] = new QVBoxLayout(this);
@@ -55,7 +55,7 @@ void EditValueDialog::createMainLayout()
 
 	value_widget = new QWidget(this);
 	value_widget->setLayout(input_layout[Value]);
-	
+
 	button_box = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 
 	main_layout->addWidget(select_widget);
@@ -108,6 +108,7 @@ void EditValueDialog::OK_button_clicked()
 	switch (calc->getVariableType(key))
 	{
 	case Calculator::MATRIX:
+	{
 		int row = input_line[Row]->text().toInt();
 		int col = input_line[Col]->text().toInt();
 		float value = input_line[Value]->text().toFloat();
@@ -122,16 +123,21 @@ void EditValueDialog::OK_button_clicked()
 			return;
 		}
 		break;
+	}
 	case Calculator::NUMERIC:
+	{
 		float value = input_line[Value]->text().toFloat();
 		calc->EditValue(key, value);
 		accept();
 		break;
+	}
 	case Calculator::STRING:
+	{
 		std::string value = input_line[Value]->text().toStdString();
 		calc->EditValue(key, value);
 		accept();
 		break;
+	}
 	}
 }
 
