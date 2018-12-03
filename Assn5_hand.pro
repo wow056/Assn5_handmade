@@ -25,11 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        dialog.cpp
+    dialog.cpp \
+    Calculator.cpp \
+    deletedialog.cpp \
+    editvaluedialog.cpp \
+    main.cpp \
+    newmatrixdialog.cpp \
+    newnumericstringdialog.cpp \
+    operand.cpp \
+    operationdialog.cpp \
+    variablelabel.cpp
 
 HEADERS += \
-        dialog.h
+    dialog.h \
+    Calculator.h \
+    deletedialog.h \
+    editvaluedialog.h \
+    newmatrixdialog.h \
+    newnumericstringdialog.h \
+    operand.h \
+    operationdialog.h \
+    variablelabel.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
