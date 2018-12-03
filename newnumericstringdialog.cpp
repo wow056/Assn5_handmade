@@ -1,12 +1,11 @@
 #include "newnumericstringdialog.h"
 
 NewNumericStringDialog::NewNumericStringDialog(QWidget *parent)
-	: QDialog(parent)
+	: QDialog(parent), calc(Calculator::GetInstance())
 {
 	setWindowTitle("New Matrix");
 	setFixedSize(320, 240);
 	createMainLayout();
-	calc = Calculator::GetInstance();
 	connectSlots();
 }
 
@@ -39,6 +38,7 @@ void NewNumericStringDialog::createMainLayout()
 
 	button_box = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	main_layout->addWidget(button_box);
+	main_layout->setSpacing(10);
 }
 
 void NewNumericStringDialog::connectSlots()

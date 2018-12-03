@@ -2,9 +2,8 @@
 #include <climits>
 
 NewMatrixDialog::NewMatrixDialog(QWidget *parent)
-	: QDialog(parent)
+	: QDialog(parent), calc(Calculator::GetInstance())
 {
-	calc = Calculator::GetInstance();
 	setWindowTitle("New Matrix");
 	setFixedSize(320, 240);
 	createMainLayout();

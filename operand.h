@@ -22,14 +22,6 @@ enum exceptions
 	CannotCalculateError = 64	//연산이 불가능할때
 };
 
-struct Matrix_meta
-{
-	std::string name;
-	int rows;
-	int cols;
-	float init_value;
-};
-
 class Matrix
 {
 public:

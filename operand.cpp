@@ -96,7 +96,7 @@ Matrix Matrix::operator*(const Matrix &m) const
 			{
 				result_ij += data[i][k] * m.data[k][j];
 			}
-			m.data[i][j] = result_ij;
+			result.data[i][j] = result_ij;
 		}
 	}
 	return result;

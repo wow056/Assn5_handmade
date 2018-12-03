@@ -5,10 +5,10 @@ using namespace std;
 Dialog::Dialog(QWidget *parent)
 	: QDialog(parent)
 {
-	createMainLayout();
 	setWindowTitle("Qt Calculator");
 	setFixedSize(480, 800);
 	setSizeGripEnabled(false);
+	createMainLayout();
 	connectSlots();
 	calc = Calculator::GetInstance();
 }
@@ -118,6 +118,11 @@ void Dialog::showVariable(QString name) const
 
 void Dialog::AddButtonClicked()
 {
+	OperationDialog op_dialog(this, OperationDialog::Add);
+	if (op_dialog.exec() == QDialog::Accepted)
+	{
+		showVariable("result");
+	}
 }
 
 void Dialog::MatButtonClicked()
@@ -131,6 +136,11 @@ void Dialog::MatButtonClicked()
 
 void Dialog::SubButtonClicked()
 {
+	OperationDialog op_dialog(this, OperationDialog::Sub);
+	if (op_dialog.exec() == QDialog::Accepted)
+	{
+		showVariable("result");
+	}
 }
 
 void Dialog::NumButtonClicked()
@@ -144,10 +154,20 @@ void Dialog::NumButtonClicked()
 
 void Dialog::MulButtonClicked()
 {
+	OperationDialog op_dialog(this, OperationDialog::Mul);
+	if (op_dialog.exec() == QDialog::Accepted)
+	{
+		showVariable("result");
+	}
 }
 
 void Dialog::DivButtonClicked()
 {
+	OperationDialog op_dialog(this, OperationDialog::Div);
+	if (op_dialog.exec() == QDialog::Accepted)
+	{
+		showVariable("result");
+	}
 }
 
 void Dialog::StrButtonClicked()
@@ -170,8 +190,12 @@ void Dialog::EditButtonClicked()
 
 void Dialog::DelButtonClicked()
 {
+	DeleteDialog del_dialog(this);
+	del_dialog.exec();
 }
 
 void Dialog::ClearButtonClicked()
 {
+	calc->Clear();
+	result_output->clear();
 }

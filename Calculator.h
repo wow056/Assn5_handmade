@@ -32,6 +32,7 @@ public:
 	QString GetVariableValue(std::string key) const;
 	int getVariableType(std::string key) const;
 	QStringList getVariableNameList() const;
+	void deleteVariable(std::string key);
 	void Clear();
 
 	static Calculator* GetInstance()

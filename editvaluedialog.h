@@ -50,7 +50,7 @@ private:
 	QString _changed_variable;
 
 	void createMainLayout();
-	void connectSlots();
+//	void connectSlots();
 };
 
 #endif // !EDITVALUEDIALOG_H

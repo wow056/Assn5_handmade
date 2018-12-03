@@ -110,17 +110,20 @@ int Calculator::Add(std::string key1, std::string key2)
 	if ((matrix_it[0] = matrix_variables.find(key1)) != matrix_variables.end()) // 첫째 항이 matrix일 때
 	{
 		Matrix &op0 = matrix_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
+			if (op0.Rows() != matrix_it[1]->second.Rows()
+				&& op0.Cols() != matrix_it[1]->second.Cols())
+				return CannotCalculateError;
 			SetResult(op0 + matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 + numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -128,17 +131,17 @@ int Calculator::Add(std::string key1, std::string key2)
 	else if ((numeric_it[0] = numeric_variables.find(key1)) != numeric_variables.end()) // 첫째 항이 numeric일 때
 	{
 		float &op0 = numeric_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			SetResult(op0 + matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 + numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			SetResult(op0 + string_it[1]->second);
 			return 0;
@@ -147,16 +150,16 @@ int Calculator::Add(std::string key1, std::string key2)
 	else if ((string_it[0] = string_variables.find(key1)) != string_variables.end()) // 첫째 항이 string일 때
 	{
 		string &op0 = string_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 + numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			SetResult(op0 + string_it[1]->second);
 			return 0;
@@ -172,17 +175,20 @@ int Calculator::Sub(std::string key1, std::string key2)
 	if ((matrix_it[0] = matrix_variables.find(key1)) != matrix_variables.end()) // 첫째 항이 matrix일 때
 	{
 		Matrix &op0 = matrix_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
+			if (op0.Rows() != matrix_it[1]->second.Rows()
+				&& op0.Cols() != matrix_it[1]->second.Cols())
+				return CannotCalculateError;
 			SetResult(op0 - matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 - numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -190,17 +196,17 @@ int Calculator::Sub(std::string key1, std::string key2)
 	else if ((numeric_it[0] = numeric_variables.find(key1)) != numeric_variables.end()) // 첫째 항이 numeric일 때
 	{
 		float &op0 = numeric_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			SetResult(op0 - matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 - numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -208,15 +214,15 @@ int Calculator::Sub(std::string key1, std::string key2)
 	else if ((string_it[0] = string_variables.find(key1)) != string_variables.end()) // 첫째 항이 string일 때
 	{
 		string &op0 = string_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -231,17 +237,19 @@ int Calculator::Mul(std::string key1, std::string key2)
 	if ((matrix_it[0] = matrix_variables.find(key1)) != matrix_variables.end()) // 첫째 항이 matrix일 때
 	{
 		Matrix &op0 = matrix_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
+			if (op0.Cols() != matrix_it[1]->second.Rows())
+				return CannotCalculateError;
 			SetResult(op0 * matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 * numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -249,17 +257,17 @@ int Calculator::Mul(std::string key1, std::string key2)
 	else if ((numeric_it[0] = numeric_variables.find(key1)) != numeric_variables.end()) // 첫째 항이 numeric일 때
 	{
 		float &op0 = numeric_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			SetResult(op0 * matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 * numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			SetResult(op0 * string_it[1]->second);
 			return 0;
@@ -268,16 +276,16 @@ int Calculator::Mul(std::string key1, std::string key2)
 	else if ((string_it[0] = string_variables.find(key1)) != string_variables.end()) // 첫째 항이 string일 때
 	{
 		string &op0 = string_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 * numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -292,16 +300,16 @@ int Calculator::Div(std::string key1, std::string key2)
 	if ((matrix_it[0] = matrix_variables.find(key1)) != matrix_variables.end()) // 첫째 항이 matrix일 때
 	{
 		Matrix &op0 = matrix_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 / numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -309,17 +317,17 @@ int Calculator::Div(std::string key1, std::string key2)
 	else if ((numeric_it[0] = numeric_variables.find(key1)) != numeric_variables.end()) // 첫째 항이 numeric일 때
 	{
 		float &op0 = numeric_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			SetResult(op0 / matrix_it[1]->second);
 			return 0;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			SetResult(op0 / numeric_it[1]->second);
 			return 0;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -327,15 +335,15 @@ int Calculator::Div(std::string key1, std::string key2)
 	else if ((string_it[0] = string_variables.find(key1)) != string_variables.end()) // 첫째 항이 string일 때
 	{
 		string &op0 = string_it[0]->second;
-		if ((matrix_it[1] = matrix_variables.find(key1)) != matrix_variables.end()) // 둘째 항이 matrix일 때
+		if ((matrix_it[1] = matrix_variables.find(key2)) != matrix_variables.end()) // 둘째 항이 matrix일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((numeric_it[1] = numeric_variables.find(key1)) != numeric_variables.end()) // 둘째 항이 numeric일 때
+		else if ((numeric_it[1] = numeric_variables.find(key2)) != numeric_variables.end()) // 둘째 항이 numeric일 때
 		{
 			return CannotCalculateError;
 		}
-		else if ((string_it[1] = string_variables.find(key1)) != string_variables.end()) // 둘째 항이 string일 때
+		else if ((string_it[1] = string_variables.find(key2)) != string_variables.end()) // 둘째 항이 string일 때
 		{
 			return CannotCalculateError;
 		}
@@ -453,6 +461,13 @@ QStringList Calculator::getVariableNameList() const
 	}
 	result.sort();
 	return result;
+}
+
+void Calculator::deleteVariable(std::string key)
+{
+	matrix_variables.erase(key);
+	numeric_variables.erase(key);
+	string_variables.erase(key);
 }
 
 void Calculator::Clear()

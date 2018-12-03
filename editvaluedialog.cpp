@@ -7,8 +7,8 @@ EditValueDialog::EditValueDialog(QWidget *parent)
 {
 	calc = Calculator::GetInstance();
 	setWindowTitle("Edit Value");
+	//connectSlots();
 	createMainLayout();
-	connectSlots();
 }
 
 EditValueDialog::~EditValueDialog()
@@ -23,6 +23,7 @@ QString EditValueDialog::changed_variable() const
 void EditValueDialog::createMainLayout()
 {
 	main_layout = new QVBoxLayout(this);
+	setLayout(main_layout);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -57,6 +58,8 @@ void EditValueDialog::createMainLayout()
 	value_widget->setLayout(input_layout[Value]);
 
 	button_box = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+	QObject::connect(button_box, SIGNAL(accepted()), this, SLOT(OK_button_clicked()));
+	QObject::connect(button_box, SIGNAL(rejected()), this, SLOT(reject()));
 
 	main_layout->addWidget(select_widget);
 	main_layout->addWidget(matrix_widget);
@@ -68,18 +71,17 @@ void EditValueDialog::createMainLayout()
 	select_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
 	validator = new QDoubleValidator(this);
-
-	matrix_widget->hide();
-	value_widget->hide();
+	QObject::connect(select_combobox, SIGNAL(currentTextChanged(const QString&)), this, SLOT(variable_selected(const QString&)));
+	main_layout->setSpacing(10);
 	select_combobox->addItems(calc->getVariableNameList());
 }
 
-void EditValueDialog::connectSlots()
-{
-	QObject::connect(select_combobox, SIGNAL(activated(const QString&)), this, SLOT(variable_selected(const QString&)));
-	QObject::connect(button_box, SIGNAL(accepted()), this, SLOT(OK_button_clicked()));
-	QObject::connect(button_box, SIGNAL(rejected()), this, SLOT(reject()));
-}
+//void EditValueDialog::connectSlots()
+//{
+//	QObject::connect(select_combobox, SIGNAL(currentTextChanged(const QString&)), this, SLOT(variable_selected(const QString&)));
+//	QObject::connect(button_box, SIGNAL(accepted()), this, SLOT(OK_button_clicked()));
+//	QObject::connect(button_box, SIGNAL(rejected()), this, SLOT(reject()));
+//}
 
 void EditValueDialog::changeToMatrixLayout()
 {
@@ -91,7 +93,7 @@ void EditValueDialog::changeToMatrixLayout()
 void EditValueDialog::changeToStringLayout()
 {
 	value_widget->show();
-	input_line[Value]->setValidator(nullptr);
+	input_line[Value]->setValidator(0);
 	matrix_widget->hide();
 }
 
@@ -119,7 +121,7 @@ void EditValueDialog::OK_button_clicked()
 		}
 		else
 		{
-			QMessageBox::critical(this, "Error", "Rows or Cols must be integer(>=1)");
+			QMessageBox::critical(this, "Error", "Invalid row or column");
 			return;
 		}
 		break;
@@ -152,10 +154,10 @@ void EditValueDialog::variable_selected(const QString &s)
 		changeToMatrixLayout();
 		break;
 	case Calculator::NUMERIC:
-		changeToStringLayout();
+		changeToNumericLayout();
 		break;
 	case Calculator::STRING:
-		changeToNumericLayout();
+		changeToStringLayout();
 		break;
 	default:
 		break;
