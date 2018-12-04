@@ -4,7 +4,7 @@ void DeleteDialog::createMainLayout()
 {
 	main_layout = new QVBoxLayout(this);
 	setLayout(main_layout);
-	select_layout = new QVBoxLayout(this);
+	select_layout = new QVBoxLayout();
 	select_label = new QLabel(this);
 	select_combobox = new QComboBox(this);
 	select_info = new VariableLabel(this);

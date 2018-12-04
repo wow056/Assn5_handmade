@@ -7,7 +7,7 @@ void OperationDialog::createMainLayout()
 
 	for (int i = 0; i < 2; i++)
 	{
-		select_layout[i] = new QVBoxLayout(this);
+		select_layout[i] = new QVBoxLayout();
 		select_label[i] = new QLabel(this);
 		select_combobox[i] = new QComboBox(this);
 		select_info[i] = new VariableLabel(this);
@@ -94,7 +94,7 @@ void OperationDialog::OK_button_clicked()
 }
 
 OperationDialog::OperationDialog(QWidget *parent, int type)
-	: QDialog(parent), calculate_type(type), calc(Calculator::GetInstance())
+    : QDialog(parent), calc(Calculator::GetInstance()), calculate_type(type)
 {
 	//connectSlots();
 	createMainLayout();

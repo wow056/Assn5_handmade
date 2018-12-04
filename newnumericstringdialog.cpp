@@ -25,7 +25,7 @@ void NewNumericStringDialog::createMainLayout()
 	main_layout->insertStretch(-1, 10);
 	for (int i = 0; i < 2; i++)
 	{
-		input_layout[i] = new QVBoxLayout(this);
+		input_layout[i] = new QVBoxLayout();
 		label[i] = new QLabel(this);
 		input_line[i] = new QLineEdit(this);
 		input_layout[i]->addWidget(label[i]);

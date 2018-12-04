@@ -15,12 +15,6 @@ Dialog::Dialog(QWidget *parent)
 
 Dialog::~Dialog()
 {
-	for (int i = 0; i < 10; i++)
-		delete buttons[i];
-	delete button_layout;
-	delete result_output;
-	delete result_label;
-	delete main_layout;
 }
 
 Calculator * Dialog::getCalculator()
@@ -67,7 +61,7 @@ void Dialog::createMainLayout()
 	result_output = new QTextBrowser(this);
 
 	//create Button widgets
-	button_layout = new QGridLayout(this);
+	button_layout = new QGridLayout();
 	for (int i = 0; i < 10; i++)
 	{
 		buttons[i] = new QPushButton(QString::fromStdString(getButtonNames(i)), this);
